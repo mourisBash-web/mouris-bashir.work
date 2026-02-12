@@ -179,11 +179,73 @@ font-weight:600;
     grid-template-columns:1fr;
   }
 }
+body{
+  background:#f3efe7;
+}
+
+/* center layout */
+.writer{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+/* paper */
+.paper{
+  width:720px;
+  min-height:420px;
+  background:#fffdf8;
+  padding:60px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.18);
+  border-radius:6px;
+  font-family:'Courier New', monospace;
+  font-size:22px;
+  line-height:1.6;
+  position:relative;
+}
+
+/* blinking cursor */
+.cursor{
+  width:10px;
+  height:24px;
+  background:black;
+  display:inline-block;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1;}
+  50%{opacity:0;}
+  100%{opacity:1;}
+}
+
+.hint{
+  margin-top:25px;
+  color:#777;
+  font-size:14px;
+  letter-spacing:1px;
+}
 
 </style>
 </head>
 
 <body>
+<div class="writer">
+
+  <div class="paper">
+      <div id="text"></div>
+      <div class="cursor"></div>
+  </div>
+
+  <div class="hint">
+      Start typing...
+  </div>
+
+</div>
+
+<audio id="keySound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
 <nav>
 <div class="container">
@@ -254,9 +316,45 @@ font-weight:600;
 </section>
 
 </div>
+<script>
+
+const textDiv = document.getElementById("text");
+const keySound = document.getElementById("keySound");
+
+let content = "";
+
+document.addEventListener("keydown", function(e){
+
+    keySound.currentTime = 0;
+    keySound.play();
+
+    // backspace
+    if(e.key === "Backspace"){
+        content = content.slice(0,-1);
+        textDiv.innerHTML = content;
+        return;
+    }
+
+    // enter key
+    if(e.key === "Enter"){
+        content += "<br><br>";
+        textDiv.innerHTML = content;
+        return;
+    }
+
+    // normal characters
+    if(e.key.length === 1){
+        content += e.key;
+        textDiv.innerHTML = content;
+    }
+
+});
+
+</script>
 
 </body>
 </html>
+
 
 
 
