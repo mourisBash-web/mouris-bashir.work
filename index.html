@@ -144,6 +144,42 @@ text-decoration:none;
 border-radius:8px;
 font-weight:600;
 }
+  .projects{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  margin-top:30px;
+}
+
+.project img{
+  width:100%;
+  border-radius:18px;
+  display:block;
+}
+
+.project h3{
+  font-size:22px;
+  margin-top:18px;
+  margin-bottom:8px;
+  font-weight:500;
+}
+
+.subtitle{
+  color:#444;
+  font-size:16px;
+  margin-bottom:4px;
+}
+
+.role{
+  color:#777;
+  font-size:15px;
+}
+@media(max-width:800px){
+  .projects{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 
@@ -169,10 +205,24 @@ font-weight:600;
 
 <h2 id="work" class="section-title">Selected Work</h2>
 
-<div class="card">
-<h3>Corporate Crisis Communication</h3>
-<p>Placeholder case study. Describe the challenge, your actions, and the impact you created.</p>
+<div class="projects">
+
+  <div class="project">
+    <img src="Project1.gif" alt="Project 1">
+    <h3>lululemon x Run with the Roses</h3>
+    <p class="subtitle">Sparking the beat of 2026</p>
+    <p class="role"><em>Copywriting</em></p>
+  </div>
+
+  <div class="project">
+    <img src="project2.jpg" alt="Project 2">
+    <h3>PC Financial</h3>
+    <p class="subtitle">Rewarding every side of you</p>
+    <p class="role"><em>Conceptual Ideation, Copywriting</em></p>
+  </div>
+
 </div>
+
 
 <div class="card">
 <h3>Brand Transformation Campaign</h3>
@@ -206,4 +256,5 @@ font-weight:600;
 
 </body>
 </html>
+
 
