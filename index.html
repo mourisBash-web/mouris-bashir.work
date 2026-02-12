@@ -227,25 +227,108 @@ body{
   font-size:14px;
   letter-spacing:1px;
 }
+body{
+  background:#ececec;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* center everything */
+.desk{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+/* laptop body */
+.laptop{
+  width:820px;
+  border-radius:14px;
+  background:#dcdcdc;
+  box-shadow:0 30px 90px rgba(0,0,0,0.25);
+  overflow:hidden;
+}
+
+/* top bar */
+.topbar{
+  background:#2b2b2b;
+  padding:12px 14px;
+}
+
+.dot{
+  height:12px;
+  width:12px;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:8px;
+}
+
+.red{ background:#ff5f57; }
+.yellow{ background:#febc2e; }
+.green{ background:#28c840; }
+
+/* screen */
+.screen{
+  background:#ffffff;
+  min-height:420px;
+  padding:40px;
+  font-family: "Courier New", monospace;
+  font-size:20px;
+  line-height:1.7;
+}
+
+/* blinking cursor */
+.cursor{
+  display:inline-block;
+  width:10px;
+  height:22px;
+  background:black;
+  margin-left:3px;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1;}
+  50%{opacity:0;}
+  100%{opacity:1;}
+}
+
+.instruction{
+  margin-top:24px;
+  color:#555;
+  font-size:14px;
+}
 
 </style>
 </head>
 
 <body>
-<div class="writer">
+<div class="desk">
 
-  <div class="paper">
-      <div id="text"></div>
-      <div class="cursor"></div>
+  <div class="laptop">
+
+      <div class="topbar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+
+      <div class="screen">
+          <div id="text"></div>
+          <span class="cursor"></span>
+      </div>
+
   </div>
 
-  <div class="hint">
-      Start typing...
+  <div class="instruction">
+      Start typing to explore my portfolio
   </div>
 
 </div>
 
 <audio id="keySound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
 
 <nav>
 <div class="container">
@@ -323,29 +406,40 @@ const keySound = document.getElementById("keySound");
 
 let content = "";
 
+/* predefined narrative triggers */
+const commands = {
+  about: "I am a communications strategist specialising in reputation, crisis communication, and digital narrative.\n\nI work where institutions meet public opinion.",
+  work: "Selected Work:\n• Crisis communication for large corporate groups\n• International digital campaigns across Asia & Europe\n• Public awareness initiatives",
+  contact: "Email: your@email.com\nLinkedIn: linkedin.com/in/yourname"
+};
+
 document.addEventListener("keydown", function(e){
 
     keySound.currentTime = 0;
     keySound.play();
 
-    // backspace
     if(e.key === "Backspace"){
         content = content.slice(0,-1);
-        textDiv.innerHTML = content;
+        textDiv.innerText = content;
         return;
     }
 
-    // enter key
     if(e.key === "Enter"){
-        content += "<br><br>";
-        textDiv.innerHTML = content;
+        const word = content.split(" ").pop().toLowerCase();
+
+        if(commands[word]){
+            content += "\n\n" + commands[word] + "\n\n";
+        } else {
+            content += "\n";
+        }
+
+        textDiv.innerText = content;
         return;
     }
 
-    // normal characters
     if(e.key.length === 1){
         content += e.key;
-        textDiv.innerHTML = content;
+        textDiv.innerText = content;
     }
 
 });
@@ -354,6 +448,7 @@ document.addEventListener("keydown", function(e){
 
 </body>
 </html>
+
 
 
 
